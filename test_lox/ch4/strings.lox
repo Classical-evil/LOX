@@ -1,0 +1,8 @@
+""
+"string"
+"abfdsjfjalf"
+
+// expect: String "" ""
+// expect: String "string" "string"
+// expect: String "abfdsjfjalf" "abfdsjfjalf"
+// expect: Eof  Nil 

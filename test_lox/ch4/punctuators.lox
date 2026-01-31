@@ -1,0 +1,21 @@
+(){};,+-*!===<=>=!=<>/.
+
+// expect: LeftParen ( Nil
+// expect: RightParen ) Nil
+// expect: LeftBrace { Nil
+// expect: RightBrace } Nil
+// expect: Semicolon ; Nil
+// expect: Comma , Nil
+// expect: Plus + Nil
+// expect: Minus - Nil
+// expect: Star * Nil
+// expect: BangEqual != Nil
+// expect: EqualEqual == Nil
+// expect: LessEqual <= Nil
+// expect: GreaterEqual >= Nil
+// expect: BangEqual != Nil
+// expect: Less < Nil
+// expect: Greater > Nil
+// expect: Slash / Nil
+// expect: Dot . Nil
+// expect: Eof  Nil

@@ -1,9 +1,5 @@
 use std::error::Error;
 
-mod Scanner;
-mod Token;
-mod TokenType;
-
 fn main() -> Result<(), Box<dyn Error>> {
     use std::env;
     use std::process;
@@ -52,19 +48,13 @@ fn run_prompt() -> Result<(), Box<dyn Error>> {
 }
 
 fn run(source: &str) {
-    use crate::Scanner::Scanner;
+    use lox::Scanner::Scanner;
     let mut scanner = Scanner::new(source);
     let tokens = scanner.scanTokens();
     for token in tokens {
-        print!("{} ", token);
+        let s = format!("{token}");
+        println!("{} {}", token, s);
     }
-    println!();
 }
 
-fn error(line: usize, message: &str) {
-    report(line, "", message);
-}
 
-fn report(line: usize, postion: &str, message: &str) {
-    println!("[line{}Error]{}:{}", line, postion, message);
-}

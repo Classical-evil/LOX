@@ -2,6 +2,7 @@ use crate::Token::Token;
 use crate::TokenType::LiteralsValue;
 use crate::TokenType::TokenType;
 use crate::TokenType::KEYWORDS;
+use crate::error;
 
 pub struct Scanner {
     source: String,
@@ -28,7 +29,7 @@ impl Scanner {
             self.scanToken();
         }
         self.tokens.push(Token::new(
-            TokenType::EOF,
+            TokenType::Eof,
             String::new(),
             LiteralsValue::Nil,
             self.line,
@@ -99,7 +100,6 @@ impl Scanner {
     }
 
     fn isDigit(&self, c: char) -> bool {
-        println!("c:{}", c as u8);
         c >= '0' && c <= '9'
     }
 
@@ -154,7 +154,6 @@ impl Scanner {
 
     fn scanToken(&mut self) {
         let c = self.advance();
-        // println!("c:{}", c);
         match c {
             '(' => self.addToken(TokenType::LeftParen),
             ')' => self.addToken(TokenType::RightParen),
@@ -218,12 +217,9 @@ impl Scanner {
             ' ' | '\r' | '\t' => {}
 
             c => {
-                println!("cc:{c}");
                 if self.isDigit(c) {
-                    println!("IsDigit");
                     self.number();
                 } else if self.isAlpha(c) {
-                    println!("Identifier");
                     self.identifier();
                 } else {
                     crate::error(self.line, "Unexpected character.");
@@ -232,3 +228,37 @@ impl Scanner {
         }
     }
 }
+
+// #[test]
+// fn identifier_test() {
+//     use std::fs;
+//     use std::path::Path;
+
+//     let file_path = Path::new(env!("CARGO_MANIFEST_DIR"))
+//         .join("test_lox")
+//         .join("identifiers.lox");
+//     let file_content = fs::read_to_string(&file_path).unwrap_or_else(
+//         |e| panic!("Read file:{} failed. Path:{:?}",
+//         e,
+//         file_path,
+//     ));
+//     let mut contents = Vec::new();
+//     for line in file_content.lines() {
+//         let trimmed_line = line.trim();
+//         if trimmed_line.starts_with("// expect:") {
+//             let expect_content = trimmed_line.strip_prefix("// expect:").unwrap().trim();
+//             contents.push(expect_content.to_string());
+//         }
+//     }
+//     let mut scanner = Scanner::new(&file_content);
+//     let tokens = scanner.scanTokens();
+//     for (idx, (token, line)) in tokens.into_iter().zip(contents.into_iter()).enumerate() {
+//         let s = format!("{token}");
+//         assert_eq!(
+//             s, line,
+//             "Line {} match failed, output:{}, expected:{}",
+//             idx + 1, s, line
+//         )
+//     } 
+// }
+
