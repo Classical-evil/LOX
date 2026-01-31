@@ -21,7 +21,7 @@ impl Token {
 
 impl std::fmt::Display for Token {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.lexeme)
-        // write!(f, "{:?} {} {:?}", self.ttype, self.lexeme, self.literal)
+        // write!(f, "{}", self.lexeme)
+        write!(f, "{:?} {} {:?}", self.ttype, self.lexeme, self.literal)
     }
 }
